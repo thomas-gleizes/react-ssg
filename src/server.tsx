@@ -24,19 +24,13 @@ const DIST_PATH = `${process.cwd()}/dist`
       .fill(null)
       .reduce<string>((previousValue) => `${previousValue}../`, "./")
 
-    console.log("BaseUrl", baseUrl)
-
     // @ts-ignore
     const html = baseHtml.replace("$IDENTIFIER$", string).replaceAll("$BASE$", baseUrl)
-
     const path = `${DIST_PATH}${route.path}`
 
     await fs.mkdir(path, { recursive: true })
     await fs
       .writeFile(`${path}/index.html`, html)
       .then(() => console.log("Generated", route.path))
-      .catch((err) => {
-        console.log("err", route.path, err)
-      })
   }
 })()
