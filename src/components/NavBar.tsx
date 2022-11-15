@@ -1,7 +1,7 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React from "react"
+import { Link } from "react-router-dom"
 
-import { routes } from "../resources/routes.js";
+import { routes } from "../resources/routes"
 
 const NavBar = () => {
   return (
@@ -10,7 +10,7 @@ const NavBar = () => {
         style={{
           display: "flex",
           justifyContent: "space-around",
-          width: "500px",
+          width: "500px"
         }}
       >
         {routes.map((route, index) => (
@@ -20,7 +20,7 @@ const NavBar = () => {
         ))}
       </nav>
     </div>
-  );
-};
+  )
+}
 
-export default NavBar;
+export default NavBar

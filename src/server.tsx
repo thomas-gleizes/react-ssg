@@ -3,8 +3,8 @@ import React from "react"
 import ReactDom from "react-dom/server"
 import { StaticRouter } from "react-router-dom/server.js"
 
-import App from "./App.jsx"
-import { routes } from "./resources/routes.js"
+import App from "./App"
+import { routes } from "./resources/routes"
 
 const DIST_PATH = `${process.cwd()}/dist`
 
@@ -22,7 +22,7 @@ const DIST_PATH = `${process.cwd()}/dist`
 
     const src = Array.from({ length: route.path.split("/").length - 1 })
       .fill(null)
-      .reduce((previousValue) => `../${previousValue}`, "main.js")
+      .reduce<string>((previousValue) => `../${previousValue}`, "main.js")
 
     const html = baseHtml.replace("$IDENTIFIER$", string).replace("main.js", src)
 

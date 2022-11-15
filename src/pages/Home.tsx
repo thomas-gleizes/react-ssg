@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import Layout from "../components/Layout.jsx"
+import Layout from "../components/Layout"
 
 const Home = () => {
   const [counter, setCounter] = useState(0)
