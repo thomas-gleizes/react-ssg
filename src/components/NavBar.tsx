@@ -5,19 +5,18 @@ import { routes } from "../resources/routes"
 
 const NavBar = () => {
   return (
-    <div>
-      <nav
-        style={{
-          display: "flex",
-          justifyContent: "space-around",
-          width: "500px"
-        }}
-      >
-        {routes.map((route, index) => (
-          <Link key={index} to={route.path}>
-            {route.path}
-          </Link>
-        ))}
+    <div className="mb-3">
+      <nav>
+        <ul className="flex space-x-5">
+          {routes.map((route, index) => (
+            <li
+              key={index}
+              className="bg-blue-500 text-white px-3 py-1 rounded shadow hover:shadow-2xl transition duration-75"
+            >
+              <Link to={route.path}>{route.path}</Link>
+            </li>
+          ))}
+        </ul>
       </nav>
     </div>
   )

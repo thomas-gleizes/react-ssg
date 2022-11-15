@@ -2,6 +2,7 @@ import React from "react"
 import { Route, Routes } from "react-router-dom"
 
 import { routes } from "./resources/routes"
+import "./styles/tailwind.css"
 
 const App = () => {
   return (

@@ -20,11 +20,14 @@ const DIST_PATH = `${process.cwd()}/dist`
       </StaticRouter>
     )
 
-    const src = Array.from({ length: route.path.split("/").length - 1 })
+    const baseUrl = Array.from({ length: route.path.split("/").length - 1 })
       .fill(null)
-      .reduce<string>((previousValue) => `../${previousValue}`, "main.js")
+      .reduce<string>((previousValue) => `${previousValue}../`, "./")
 
-    const html = baseHtml.replace("$IDENTIFIER$", string).replace("main.js", src)
+    console.log("BaseUrl", baseUrl)
+
+    // @ts-ignore
+    const html = baseHtml.replace("$IDENTIFIER$", string).replaceAll("$BASE$", baseUrl)
 
     const path = `${DIST_PATH}${route.path}`
 
