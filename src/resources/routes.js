@@ -1,4 +1,4 @@
-import Home from "../pages/Home.js";
+import Home from "../pages/Home.jsx";
 import About from "../pages/About.jsx";
 import Profile from "../pages/profile/Profile.jsx";
 import ProfileSettings from "../pages/profile/Settings.jsx";

@@ -1,12 +1,33 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import Layout from "../components/Layout.jsx";
 
 const About = () => {
-  const [state, setState] = useState(0);
+  const [animes, setAnimes] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    setLoading(true);
+
+    fetch("https://kanime.thomasgleizes.fr/api/animes")
+      .then((response) => response.json())
+      .then((data) => setAnimes(data.records))
+      .finally(() => setLoading(false));
+  }, []);
 
   return (
-    <div onClick={() => setState(state + 1)}>
-      <h1>About page : {state}</h1>
-    </div>
+    <Layout>
+      {loading ? (
+        <div>Loading ...</div>
+      ) : (
+        <div>
+          <ul>
+            {animes.map((anime) => (
+              <li key={anime.id}>{anime.slug}</li>
+            ))}
+          </ul>
+        </div>
+      )}
+    </Layout>
   );
 };
 
