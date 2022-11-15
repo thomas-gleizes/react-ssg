@@ -1,22 +1,39 @@
 import fs from "node:fs/promises";
 import React from "react";
 import ReactDom from "react-dom/server";
+import { StaticRouter } from "react-router-dom/server.js";
 
 import App from "./App.jsx";
-import { StaticRouter } from "react-router-dom/server.js";
+import { routes } from "./resources/routes.js";
+
+const DIST_PATH = `${process.cwd()}/dist`;
 
 (async () => {
   const html = await fs
     .readFile("src/base.html")
     .then((document) => Buffer.from(document).toString("utf8"));
 
-  const string = ReactDom.renderToString(
-    <StaticRouter location="/">
-      <App />
-    </StaticRouter>
-  );
+  for (const route of routes) {
+    const string = ReactDom.renderToString(
+      <StaticRouter location={route.path}>
+        <App />
+      </StaticRouter>
+    );
 
-  const result = html.replace("$IDENTIFIER$", string);
+    const src = Array.from({ length: route.path.split("/").length - 1 })
+      .fill(null)
+      .reduce((previousValue) => `../${previousValue}`, "main.js");
 
-  console.log("Result", result);
+    const result = html.replace("$IDENTIFIER$", string).replace("main.js", src);
+
+    const path = `${DIST_PATH}${route.path}`;
+
+    await fs.mkdir(path, { recursive: true });
+    await fs
+      .writeFile(`${path}/index.html`, result, {})
+      .then(() => console.log("Generated", route.path))
+      .catch((err) => {
+        console.log("err", route.path, err);
+      });
+  }
 })();

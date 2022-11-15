@@ -1,12 +1,12 @@
 import React from "react";
-import ReactDom from "react-dom";
+import ReactDom from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
 
 import App from "./App.jsx";
 
-ReactDom.hydrate(
+ReactDom.hydrateRoot(
+  document.getElementById("root"),
   <BrowserRouter>
     <App />
-  </BrowserRouter>,
-  document.getElementById("root")
+  </BrowserRouter>
 );
